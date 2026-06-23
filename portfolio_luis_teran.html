@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luis Teran | QA Engineer & Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       TOKENS DE DISEÑO
+       Edita estas variables para cambiar la paleta completa
+    ============================================================ */
+    :root {
+      --bg-base:       #0A0F1E;
+      --bg-card:       rgba(15, 23, 42, 0.8);
+      --bg-card-solid: #0F172A;
+      --border:        rgba(59, 130, 246, 0.15);
+      --border-hover:  rgba(59, 130, 246, 0.45);
+      --accent-blue:   #3B82F6;
+      --accent-cyan:   #06B6D4;
+      --accent-violet: #818CF8;
+      --text-primary:  #F1F5F9;
+      --text-secondary:#94A3B8;
+      --text-muted:    #475569;
+      --gradient-main: linear-gradient(135deg, #3B82F6, #06B6D4);
+      --gradient-soft: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(6,182,212,0.08));
+      --radius-card:   16px;
+      --radius-btn:    10px;
+      --shadow-card:   0 4px 24px rgba(0,0,0,0.4);
+      --shadow-glow:   0 0 32px rgba(59,130,246,0.2);
+      --font-main:     'Inter', sans-serif;
+      --font-mono:     'JetBrains Mono', monospace;
+    }
+
+    /* ============================================================ RESET */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================================ SCROLLBAR */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-base); }
+    ::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 3px; }
+
+    /* ============================================================ UTILIDADES */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 1px;
+      background: var(--accent-cyan);
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-primary);
+      margin-bottom: 48px;
+    }
+    .gradient-text {
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ============================================================ NOISE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+    .container { position: relative; z-index: 1; }
+
+    /* ============================================================ NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(16px);
+      background: rgba(10, 15, 30, 0.85);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--accent-blue);
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: var(--radius-btn);
+      background: var(--gradient-main);
+      color: white;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ============================================================ HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 64px;
+      width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--accent-cyan);
+      background: rgba(6,182,212,0.08);
+      border: 1px solid rgba(6,182,212,0.2);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .hero-name {
+      font-size: clamp(38px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .hero-subtitle {
+      font-size: clamp(16px, 2.2vw, 22px);
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      max-width: 560px;
+    }
+    .hero-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 40px;
+      line-height: 1.75;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: var(--radius-btn);
+      background: var(--gradient-main);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(59,130,246,0.35);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-btn);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-ghost:hover {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+      background: rgba(59,130,246,0.05);
+    }
+    /* Avatar */
+    .hero-avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: var(--gradient-soft);
+      border: 2px solid var(--border-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      position: relative;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .hero-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: var(--gradient-main);
+      z-index: -1;
+      opacity: 0.6;
+    }
+    /* ─── Reemplaza el emoji con tu foto ─────────────────────────────
+       Añade un <img src="tu-foto.jpg" alt="Luis Teran" />
+       dentro del div.hero-avatar y elimina el span del emoji.
+    ──────────────────────────────────────────────────────────────── */
+    .avatar-initials {
+      font-size: 52px;
+      font-weight: 900;
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -2px;
+    }
+
+    /* ============================================================ SOBRE MÍ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-text p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stat-card {
+      padding: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-glow);
+    }
+    .stat-number {
+      font-size: 32px;
+      font-weight: 900;
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================================ HABILIDADES */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .skill-category {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-category:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+    }
+    .skill-category-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--gradient-soft);
+      border: 1px solid var(--border-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .skill-category-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-blue);
+      margin-bottom: 16px;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-tag {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 11px;
+      border-radius: 6px;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.18);
+      color: var(--text-secondary);
+      transition: all 0.15s;
+    }
+    .skill-tag:hover {
+      background: rgba(59,130,246,0.18);
+      color: var(--text-primary);
+    }
+
+    /* ============================================================ EXPERIENCIA */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent-blue), transparent);
+    }
+    .timeline-item {
+      padding-left: 60px;
+      position: relative;
+      margin-bottom: 40px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      width: 17px; height: 17px;
+      border-radius: 50%;
+      background: var(--gradient-main);
+      border: 3px solid var(--bg-base);
+      box-shadow: 0 0 12px rgba(59,130,246,0.5);
+    }
+    .timeline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .timeline-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-card);
+    }
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .timeline-company {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .timeline-role {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-cyan);
+      margin-bottom: 14px;
+    }
+    .timeline-period {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .timeline-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .timeline-list li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .timeline-list li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent-blue);
+      font-weight: 700;
+    }
+
+    /* Experiencia complementaria */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .comp-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 22px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s;
+    }
+    .comp-card:hover { border-color: var(--border-hover); }
+    .comp-card-company {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+    .comp-card-role {
+      font-size: 12px;
+      color: var(--accent-violet);
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+    .comp-card-period {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .comp-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .section-subtitle {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-top: 60px;
+      margin-bottom: 8px;
+    }
+
+    /* ============================================================ EDUCACIÓN */
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 36px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .edu-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-glow);
+    }
+    .edu-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: var(--gradient-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .edu-uni { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .edu-career { font-size: 15px; color: var(--accent-cyan); font-weight: 500; margin-bottom: 8px; }
+    .edu-detail { font-size: 14px; color: var(--text-secondary); }
+    .edu-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(129,140,248,0.12);
+      border: 1px solid rgba(129,140,248,0.25);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-violet);
+    }
+    .edu-badge::before { content: '⭐'; font-size: 11px; }
+
+    /* ============================================================ CERTIFICACIONES */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 22px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .cert-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+    }
+    .cert-icon {
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+    .cert-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+    .cert-issuer {
+      font-size: 12px;
+      color: var(--accent-cyan);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .cert-year {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ============================================================ PROYECTOS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-glow);
+    }
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .project-icon {
+      font-size: 26px;
+    }
+    .project-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 3px 9px;
+      border-radius: 5px;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.2);
+      color: var(--accent-blue);
+    }
+    .project-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    .project-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+    .project-techs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .tech-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 5px;
+      background: rgba(6,182,212,0.08);
+      border: 1px solid rgba(6,182,212,0.2);
+      color: var(--accent-cyan);
+    }
+    .project-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-project-primary {
+      flex: 1;
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: var(--gradient-main);
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      transition: opacity 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-project-primary:hover { opacity: 0.8; }
+    .btn-project-ghost {
+      flex: 1;
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-project-ghost:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+    }
+
+    /* ============================================================ CONTACTO */
+    #contacto {
+      background: linear-gradient(180deg, transparent, rgba(59,130,246,0.03));
+    }
+    .contact-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-tagline {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+      line-height: 1.8;
+    }
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+    }
+    .contact-card-icon { font-size: 22px; margin-bottom: 8px; }
+    .contact-card-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .contact-card-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      word-break: break-all;
+    }
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    /* ============================================================ FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+    footer span { color: var(--accent-blue); }
+
+    /* ============================================================ DIVIDER */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 0 24px;
+    }
+
+    /* ============================================================ ANIMACIONES (scroll) */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================ MOBILE NAV */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: rgba(10,15,30,0.97);
+        backdrop-filter: blur(16px);
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--border);
+        gap: 16px;
+      }
+      .nav-hamburger { display: flex; }
+      .nav-cta { display: none; }
+    }
+
+    /* ============================================================ RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-avatar { width: 140px; height: 140px; }
+      .hero-avatar .avatar-initials { font-size: 38px; }
+      .about-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 64px 0; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+      .edu-card { flex-direction: column; }
+      .contact-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================ NAV -->
+  <nav id="navbar">
+    <div class="nav-logo">luis.teran<span style="color:var(--accent-cyan)">_</span></div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="mailto:luisteransaucedo18@gmail.com" class="nav-cta">Contactar</a>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ================================================================ HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <!-- Badge de estado -->
+          <div class="hero-badge">Disponible para oportunidades</div>
+
+          <h1 class="hero-name">
+            Hola, soy<br>
+            <span class="gradient-text">Luis Teran</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Practicante QA · Estudiante de Ingeniería de Sistemas
+          </p>
+
+          <p class="hero-desc">
+            Me especializo en pruebas funcionales, validación de APIs, reporte de incidencias y revisión de despliegues web. Me interesa construir soluciones digitales confiables, ordenadas y centradas en el usuario.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#experiencia" class="btn-primary">
+              ↓ Ver experiencia
+            </a>
+            <a href="#contacto" class="btn-ghost">
+              ✉ Contactarme
+            </a>
+            <a href="https://github.com/luisteransaucedo18-coder" target="_blank" class="btn-ghost">
+              ⌥ GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Avatar — reemplaza con <img src="tu-foto.jpg"> cuando tengas foto -->
+        <div class="hero-avatar">
+          <span class="avatar-initials">LT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ================================================================ SOBRE MÍ -->
+  <section id="sobre-mi" class="section">
+    <div class="container">
+      <div class="section-label">Perfil</div>
+      <h2 class="section-title">Sobre mí</h2>
+
+      <div class="about-grid fade-in">
+        <div class="about-text">
+          <p>
+            Soy estudiante de Ingeniería de Sistemas e Informática en la Universidad Tecnológica del Perú, actualmente cursando el VIII ciclo y perteneciente al tercio superior.
+          </p>
+          <p>
+            Me desempeño como Practicante QA en ADAPTIC, donde participo en la validación de funcionalidades, pruebas de APIs con Postman, documentación de errores y seguimiento de incidencias en ClickUp.
+          </p>
+          <p>
+            Me considero una persona analítica, responsable y orientada al detalle, con interés en la calidad del software, el desarrollo web y la mejora continua. Disfruto colaborar con equipos técnicos, aprender rápido y aportar valor real en cada proyecto.
+          </p>
+        </div>
+
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-number">VIII</div>
+            <div class="stat-label">Ciclo en curso</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">QA</div>
+            <div class="stat-label">Practicante activo</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">8+</div>
+            <div class="stat-label">Herramientas técnicas</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Certificaciones</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ================================================================ HABILIDADES -->
+  <section id="habilidades" class="section">
+    <div class="container">
+      <div class="section-label">Stack</div>
+      <h2 class="section-title">Habilidades técnicas</h2>
+
+      <div class="skills-grid fade-in">
+        <!-- QA / Testing -->
+        <div class="skill-category">
+          <div class="skill-category-icon">🔍</div>
+          <div class="skill-category-title">QA / Testing</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Pruebas funcionales</span>
+            <span class="skill-tag">Validación de APIs</span>
+            <span class="skill-tag">Reporte de incidencias</span>
+            <span class="skill-tag">Revisión de despliegues</span>
+            <span class="skill-tag">Documentación de errores</span>
+            <span class="skill-tag">Validación web</span>
+          </div>
+        </div>
+
+        <!-- Herramientas -->
+        <div class="skill-category">
+          <div class="skill-category-icon">🛠</div>
+          <div class="skill-category-title">Herramientas</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Postman</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">ClickUp</span>
+            <span class="skill-tag">Vercel</span>
+            <span class="skill-tag">Supabase</span>
+          </div>
+        </div>
+
+        <!-- Desarrollo web -->
+        <div class="skill-category">
+          <div class="skill-category-icon">💻</div>
+          <div class="skill-category-title">Desarrollo web & BD</div>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML</span>
+            <span class="skill-tag">CSS</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">APIs REST</span>
+          </div>
+        </div>
+
+        <!-- Trabajo técnico -->
+        <div class="skill-category">
+          <div class="skill-category-icon">🤝</div>
+          <div class="skill-category-title">Trabajo técnico</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Scrum básico</span>
+            <span class="skill-tag">Live coding</span>
+            <span class="skill-tag">Comunicación técnica</span>
+            <span class="skill-tag">Análisis de errores</span>
+            <span class="skill-tag">Trabajo colaborativo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ================================================================ EXPERIENCIA -->
+  <section id="experiencia" class="section">
+    <div class="container">
+      <div class="section-label">Trayectoria</div>
+      <h2 class="section-title">Experiencia profesional</h2>
+
+      <!-- EXPERIENCIA TECNOLÓGICA -->
+      <div class="timeline fade-in">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-company">ADAPTIC</div>
+                <div class="timeline-role">Practicante QA</div>
+              </div>
+              <span class="timeline-period">Actualidad</span>
+            </div>
+            <ul class="timeline-list">
+              <li>Ejecución de pruebas funcionales en proyectos digitales, validando flujos de usuario y comportamiento de funcionalidades antes de entrega.</li>
+              <li>Validación de APIs con Postman: revisión de respuestas, códigos de estado y datos enviados.</li>
+              <li>Reporte y seguimiento de incidencias en ClickUp, con documentación de errores y pasos de reproducción.</li>
+              <li>Revisión de despliegues web en Vercel, comprobando navegación, funcionamiento general y posibles fallos para el usuario final.</li>
+              <li>Validación de datos en Supabase y colaboración con el equipo técnico en GitHub.</li>
+              <li>Participación en sesiones de live coding, resolviendo ejercicios y explicando lógica de programación en tiempo real.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCIA COMPLEMENTARIA -->
+      <div class="section-subtitle">Experiencia complementaria</div>
+      <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
+        Experiencia adicional que refleja habilidades de comunicación, organización y trabajo bajo presión.
+      </p>
+
+      <div class="comp-grid fade-in">
+        <div class="comp-card">
+          <div class="comp-card-company">Ludicus Park</div>
+          <div class="comp-card-role">Atención operativa y soporte en eventos</div>
+          <div class="comp-card-period">Feb. 2025 — Jul. 2025</div>
+          <p>Coordinación de tareas operativas en eventos, atención al cliente y resolución rápida de solicitudes en entornos de alta demanda.</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-card-company">ChoriFan</div>
+          <div class="comp-card-role">Atención al cliente y producción</div>
+          <div class="comp-card-period">Abr. 2024 — Ene. 2025</div>
+          <p>Atención de pedidos, preparación de productos, cobros y organización del servicio diario. Comunicación directa con clientes y manejo de tareas simultáneas.</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-card-company">Venta de menús</div>
+          <div class="comp-card-role">Atención al cliente</div>
+          <div class="comp-card-period">Jun. 2021 — Ene. 2022</div>
+          <p>Toma de pedidos, apoyo en caja, coordinación de entregas y mantenimiento del orden del área de atención.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ================================================================ EDUCACIÓN -->
+  <section id="educacion" class="section">
+    <div class="container">
+      <div class="section-label">Formación</div>
+      <h2 class="section-title">Educación</h2>
+
+      <div class="fade-in">
+        <div class="edu-card">
+          <div class="edu-icon">🎓</div>
+          <div>
+            <div class="edu-uni">Universidad Tecnológica del Perú</div>
+            <div class="edu-career">Ingeniería de Sistemas e Informática</div>
+            <div class="edu-detail">VIII Ciclo &nbsp;·&nbsp; Actualidad</div>
+            <div class="edu-badge">Tercio superior</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ================================================================ CERTIFICACIONES -->
+  <section id="certificaciones" class="section">
+    <div class="container">
+      <div class="section-label">Credenciales</div>
+      <h2 class="section-title">Certificaciones</h2>
+
+      <div class="cert-grid fade-in">
+        <div class="cert-card">
+          <div class="cert-icon">🔒</div>
+          <div class="cert-name">Introducción a la Ciberseguridad</div>
+          <div class="cert-issuer">Cisco Networking Academy</div>
+          <div class="cert-year">2025</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🛡</div>
+          <div class="cert-name">Seguridad de Terminales</div>
+          <div class="cert-issuer">Cisco Networking Academy</div>
+          <div class="cert-year">2025</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🌐</div>
+          <div class="cert-name">Redes y Seguridad</div>
+          <div class="cert-issuer">Universidad Tecnológica del Perú</div>
+          <div class="cert-year">2025</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🇬🇧</div>
+          <div class="cert-name">Inglés Básico</div>
+          <div class="cert-issuer">ICE School</div>
+          <div class="cert-year">2023</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🎨</div>
+          <div class="cert-name">Diseño Gráfico</div>
+          <div class="cert-issuer">Integra Tec</div>
+          <div class="cert-year">2019</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ================================================================ PROYECTOS -->
+  <section id="proyectos" class="section">
+    <div class="container">
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title">Proyectos</h2>
+      <p style="font-size:14px; color:var(--text-muted); margin-top:-32px; margin-bottom:40px;">
+        <!-- Reemplaza estas tarjetas con tus proyectos reales cuando estén listos -->
+        Próximamente proyectos reales. Aquí verás los trabajos que estoy desarrollando o ya completé.
+      </p>
+
+      <div class="projects-grid fade-in">
+
+        <!-- Proyecto 1 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-icon">🧪</div>
+            <span class="project-badge">QA</span>
+          </div>
+          <!-- ✏️ Reemplaza título, descripción, tecnologías y enlaces -->
+          <div class="project-title">Validación de APIs con Postman</div>
+          <div class="project-desc">
+            Colección de pruebas automatizadas para validar endpoints REST: respuestas, códigos de estado, datos enviados y flujos de error.
+          </div>
+          <div class="project-techs">
+            <span class="tech-tag">Postman</span>
+            <span class="tech-tag">APIs REST</span>
+            <span class="tech-tag">JSON</span>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn-project-primary">Ver proyecto</a>
+            <a href="#" class="btn-project-ghost">Ver código</a>
+          </div>
+        </div>
+
+        <!-- Proyecto 2 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-icon">🌐</div>
+            <span class="project-badge">Web</span>
+          </div>
+          <div class="project-title">Web App desplegada en Vercel</div>
+          <div class="project-desc">
+            Aplicación web frontend desplegada en Vercel con integración de base de datos y flujos de usuario validados en entorno de producción.
+          </div>
+          <div class="project-techs">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Vercel</span>
+            <span class="tech-tag">Supabase</span>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn-project-primary">Ver proyecto</a>
+            <a href="#" class="btn-project-ghost">Ver código</a>
+          </div>
+        </div>
+
+        <!-- Proyecto 3 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-icon">🗃</div>
+            <span class="project-badge">Backend</span>
+          </div>
+          <div class="project-title">Sistema con BD en Supabase</div>
+          <div class="project-desc">
+            Sistema de gestión con base de datos en Supabase. Validación de registros, revisión de datos y comprobación de integridad de funcionalidades.
+          </div>
+          <div class="project-techs">
+            <span class="tech-tag">Supabase</span>
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">Node.js</span>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn-project-primary">Ver proyecto</a>
+            <a href="#" class="btn-project-ghost">Ver código</a>
+          </div>
+        </div>
+
+        <!-- Proyecto 4 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-icon">⚛</div>
+            <span class="project-badge">Frontend</span>
+          </div>
+          <div class="project-title">Proyecto Frontend con React</div>
+          <div class="project-desc">
+            Interfaz de usuario construida con React y componentes reutilizables. Diseño responsive y experiencia de usuario validada funcionalmente.
+          </div>
+          <div class="project-techs">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">CSS</span>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn-project-primary">Ver proyecto</a>
+            <a href="#" class="btn-project-ghost">Ver código</a>
+          </div>
+        </div>
+
+        <!-- Proyecto 5 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-icon">📋</div>
+            <span class="project-badge">Testing</span>
+          </div>
+          <div class="project-title">Prácticas de Testing Funcional</div>
+          <div class="project-desc">
+            Casos de prueba y documentación de escenarios funcionales para aplicaciones web, con reporte de incidencias y criterios de aceptación.
+          </div>
+          <div class="project-techs">
+            <span class="tech-tag">Testing</span>
+            <span class="tech-tag">ClickUp</span>
+            <span class="tech-tag">GitHub</span>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn-project-primary">Ver proyecto</a>
+            <a href="#" class="btn-project-ghost">Ver código</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ================================================================ CONTACTO -->
+  <section id="contacto" class="section">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="section-label" style="justify-content:center;">Contacto</div>
+        <h2 class="section-title" style="text-align:center;">Hablemos</h2>
+        <p class="contact-tagline">
+          Estoy abierto a oportunidades de prácticas, proyectos tecnológicos y colaboración en desarrollo o aseguramiento de calidad de software.
+        </p>
+
+        <div class="contact-cards fade-in">
+          <div class="contact-card">
+            <div class="contact-card-icon">📍</div>
+            <div class="contact-card-label">Ubicación</div>
+            <div class="contact-card-value">Trujillo, Perú</div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">✉</div>
+            <div class="contact-card-label">Correo</div>
+            <!-- ✏️ Actualiza tu correo aquí -->
+            <div class="contact-card-value">luisteransaucedo18@gmail.com</div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">📱</div>
+            <div class="contact-card-label">Teléfono</div>
+            <!-- ✏️ Actualiza tu número aquí -->
+            <div class="contact-card-value">902 327 242</div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">⌥</div>
+            <div class="contact-card-label">GitHub</div>
+            <div class="contact-card-value">luisteransaucedo18-coder</div>
+          </div>
+        </div>
+
+        <div class="contact-actions fade-in">
+          <!-- ✏️ Actualiza cada href con tus datos reales -->
+          <a href="mailto:luisteransaucedo18@gmail.com" class="btn-primary">
+            ✉ Enviar correo
+          </a>
+          <a href="https://github.com/luisteransaucedo18-coder" target="_blank" class="btn-ghost">
+            ⌥ Ver GitHub
+          </a>
+          <a href="https://wa.me/51902327242" target="_blank" class="btn-ghost">
+            💬 WhatsApp
+          </a>
+          <!-- ✏️ Reemplaza el href con el enlace real a tu CV en Google Drive o similar -->
+          <a href="#" class="btn-ghost">
+            ↓ Descargar CV
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ FOOTER -->
+  <footer>
+    <span>Luis Armando Teran Saucedo</span> · Trujillo, Perú · 2025<br>
+    <span style="font-size:11px; color:var(--text-muted); margin-top:6px; display:block;">
+      Diseñado y desarrollado con 💙
+    </span>
+  </footer>
+
+  <!-- ================================================================ SCRIPTS -->
+  <script>
+    /* ── NAV hamburger ──────────────────────────────────────── */
+    function toggleNav() {
+      document.getElementById('nav-links').classList.toggle('open');
+    }
+    // Cerrar al hacer click en un enlace
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('nav-links').classList.remove('open');
+      });
+    });
+
+    /* ── Scroll fade-in ─────────────────────────────────────── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    /* ── Nav highlight activo ───────────────────────────────── */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 120) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === '#' + current
+          ? 'var(--text-primary)'
+          : '';
+      });
+    });
+
+    /* ── Respeta prefers-reduced-motion ─────────────────────── */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.classList.add('visible');
+      });
+    }
+  </script>
+</body>
+</html>
