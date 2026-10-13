@@ -1,6 +1,27 @@
 import es from "./es";
 
 export default {
+  compact: {
+    details: "View details",
+    profile: "More about me",
+    about:
+      "I develop web applications, validate software quality, and lead the team at JMP PINGUS. Practical experience in QA at ADAPTIC and full stack development.",
+    projects: [
+      "Game recommendations built around each player’s preferences.",
+      "A real estate SaaS platform with 360 content and company data management.",
+      "Full stack development and team leadership, from planning to delivery.",
+    ],
+    roles: [
+      "Frontend & Backend",
+      "Full Stack Developer",
+      "Team Lead & Full Stack",
+    ],
+    experience: [
+      "Functional testing, API validation, issue tracking, and deployment reviews.",
+      "Team coordination, feature development, code reviews, and delivery validation.",
+    ],
+  },
+
   cinema: {
     label: "ONE MIND. THREE PERSPECTIVES.",
     words: ["BUILD", "TEST", "LEAD"],

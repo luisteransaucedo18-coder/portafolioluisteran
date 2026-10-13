@@ -2902,3 +2902,78 @@ footer p span {
 .cinema-section[data-paused="true"] .mechanism-spin {
   animation-play-state: paused;
 }
+/* Concise overview; full CV-backed contributions remain available on demand. */
+.content-details {
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+.content-details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  list-style: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--cyan);
+  padding: 8px 0;
+}
+.content-details summary::-webkit-details-marker {
+  display: none;
+}
+.content-details summary > span {
+  font-size: 20px;
+  line-height: 24px;
+  transition: transform 0.7s var(--ease);
+}
+.content-details[open] summary > span {
+  transform: rotate(45deg);
+}
+.details-content {
+  padding-top: 16px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 24px;
+}
+.details-content > p + p {
+  margin-top: 16px;
+}
+.details-content strong {
+  font-weight: 500;
+  color: #d3d8e2;
+}
+.about-copy > .content-details .details-content > p {
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.about-copy > p {
+  margin-bottom: 0;
+}
+.project-content > .tags {
+  margin-top: 24px;
+}
+.experience-summary > p {
+  font-size: 16px;
+  line-height: 28px;
+  color: var(--muted);
+  max-width: 560px;
+}
+.experience-summary ul {
+  padding-top: 8px;
+}
+.experience-row:not(.visible) .details-content li {
+  opacity: 1;
+  transform: none;
+}
+@media (max-width: 760px) {
+  .experience-summary > p {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .content-details {
+    margin-top: 16px;
+  }
+}

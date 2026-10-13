@@ -10,6 +10,27 @@ import {
 } from "../data/portfolio";
 
 export default {
+  compact: {
+    details: "Ver detalles",
+    profile: "Más sobre mí",
+    about:
+      "Desarrollo aplicaciones web, valido la calidad del software y lidero el equipo de JMP PINGUS. Experiencia práctica en QA en ADAPTIC y desarrollo full stack.",
+    projects: [
+      "Recomendaciones de videojuegos según las preferencias de cada jugador.",
+      "Una plataforma SaaS inmobiliaria con contenido 360 y gestión de datos por empresa.",
+      "Desarrollo full stack y liderazgo de equipo, de la planificación a la entrega.",
+    ],
+    roles: [
+      "Frontend y Backend",
+      "Desarrollador Full Stack",
+      "Líder de equipo y Full Stack",
+    ],
+    experience: [
+      "Pruebas funcionales, validación de APIs, seguimiento de incidencias y revisión de despliegues.",
+      "Coordinación del equipo, desarrollo de funcionalidades, revisión de código y validación de entregas.",
+    ],
+  },
+
   cinema: {
     label: "UNA MENTE. TRES PERSPECTIVAS.",
     words: ["CREAR", "PROBAR", "GUIAR"],

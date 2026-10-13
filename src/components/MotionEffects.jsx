@@ -103,21 +103,23 @@ export function MotionEffects({ language }) {
     };
     const disclosure = (event) => {
       if (!media.matches && event.target.open)
-        event.target.querySelector(".complementary-grid")?.animate(
-          [
-            {
-              opacity: 0,
-              transform: "translateY(-24px) scale(.97)",
-              filter: "blur(6px)",
-            },
-            {
-              opacity: 1,
-              transform: "translateY(0) scale(1)",
-              filter: "blur(0)",
-            },
-          ],
-          { duration: 700, easing: "cubic-bezier(.32,.72,0,1)" },
-        );
+        event.target
+          .querySelector(".details-content, .complementary-grid")
+          ?.animate(
+            [
+              {
+                opacity: 0,
+                transform: "translateY(-24px) scale(.97)",
+                filter: "blur(6px)",
+              },
+              {
+                opacity: 1,
+                transform: "translateY(0) scale(1)",
+                filter: "blur(0)",
+              },
+            ],
+            { duration: 700, easing: "cubic-bezier(.32,.72,0,1)" },
+          );
     };
     document.addEventListener("click", burst);
     document.addEventListener("pointermove", move, { passive: true });

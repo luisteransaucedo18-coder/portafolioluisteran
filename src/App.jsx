@@ -26,6 +26,17 @@ function Tags({ items }) {
     </div>
   );
 }
+function MoreDetails({ label, name, children }) {
+  return (
+    <details className="content-details">
+      <summary aria-label={`${label}: ${name}`}>
+        {label}
+        <span aria-hidden="true">+</span>
+      </summary>
+      <div className="details-content">{children}</div>
+    </details>
+  );
+}
 function Portfolio() {
   const { copy: c, language } = useLanguage();
   const { ui: t, profile: p } = c;
@@ -80,11 +91,7 @@ function Portfolio() {
         </section>
         <KineticShowcase />
         <section id="sobre-mi" className="section-wrap about-section">
-          <SectionHeading
-            label={t.profileLabel}
-            title={t.profileTitle}
-            intro={t.profileIntro}
-          />
+          <SectionHeading label={t.profileLabel} title={t.profileTitle} />
           <div className="about-layout">
             <div className="about-identity fade-in">
               <div className="monogram">
@@ -98,9 +105,12 @@ function Portfolio() {
               </div>
             </div>
             <div className="about-copy fade-in">
-              {c.about.map((text) => (
-                <p key={text}>{text}</p>
-              ))}
+              <p>{c.compact.about}</p>
+              <MoreDetails label={c.compact.profile} name={p.shortName}>
+                {c.about.map((text) => (
+                  <p key={text}>{text}</p>
+                ))}
+              </MoreDetails>
             </div>
           </div>
           <div className="proof-strip fade-in">
@@ -139,11 +149,7 @@ function Portfolio() {
           </span>
         </div>
         <section id="proyectos" className="section-wrap work-section">
-          <SectionHeading
-            label={t.projectLabel}
-            title={t.projectTitle}
-            intro={t.projectIntro}
-          />
+          <SectionHeading label={t.projectLabel} title={t.projectTitle} />
           <div className="project-list">
             {c.projects.map((project, index) => (
               <article className="project-row fade-in" key={project.title}>
@@ -154,15 +160,22 @@ function Portfolio() {
                     <span>{project.badge}</span>
                   </div>
                   <h3>{project.title}</h3>
-                  <p className="project-role">
-                    {t.role} / {project.role}
-                  </p>
-                  <p>{project.description}</p>
-                  <div className="project-result">
-                    <span>{t.result}</span>
-                    <p>{project.result}</p>
-                  </div>
-                  <Tags items={project.techs} />
+                  <p className="project-role">{c.compact.roles[index]}</p>
+                  <p>{c.compact.projects[index]}</p>
+                  <Tags items={project.techs.slice(0, 4)} />
+                  <MoreDetails label={c.compact.details} name={project.title}>
+                    <p>
+                      <strong>{t.role}:</strong> {project.role}
+                    </p>
+                    <p>{project.description}</p>
+                    <div className="project-result">
+                      <span>{t.result}</span>
+                      <p>{project.result}</p>
+                    </div>
+                    {project.techs.length > 4 && (
+                      <Tags items={project.techs.slice(4)} />
+                    )}
+                  </MoreDetails>
                 </div>
               </article>
             ))}
@@ -178,11 +191,16 @@ function Portfolio() {
                   <h3>{item.company}</h3>
                   <p>{item.role}</p>
                 </div>
-                <ul>
-                  {item.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
+                <div className="experience-summary">
+                  <p>{c.compact.experience[i]}</p>
+                  <MoreDetails label={c.compact.details} name={item.company}>
+                    <ul>
+                      {item.points.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  </MoreDetails>
+                </div>
               </article>
             ))}
           </div>
