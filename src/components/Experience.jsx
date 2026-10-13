@@ -14,7 +14,7 @@ export function Experience() {
                   <h3 className="timeline-company">{item.company}</h3>
                   <div className="timeline-role">{item.role}</div>
                 </div>
-                <span className="timeline-period">{item.period}</span>
+                {item.period && <span className="timeline-period">{item.period}</span>}
               </div>
               <ul className="timeline-list">
                 {item.points.map((point) => (

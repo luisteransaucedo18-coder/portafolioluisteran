@@ -10,27 +10,29 @@ export const navItems = [
 export const profile = {
   name: 'Luis Armando Teran Saucedo',
   shortName: 'Luis Teran',
-  role: 'QA Engineer & Developer',
-  location: 'Trujillo, Peru',
+  role: 'QA Testing · Desarrollador Full Stack',
+  location: 'Trujillo, Perú',
   email: 'luisteransaucedo18@gmail.com',
   phone: '902 327 242',
   whatsapp: 'https://wa.me/51902327242',
   github: 'https://github.com/luisteransaucedo18-coder',
+  linkedin: 'https://www.linkedin.com/in/teran-saucedo-luis-armando-91933136b',
   githubUser: 'luisteransaucedo18-coder',
   cvUrl: 'documents/CV_Luis_Teran_Saucedo.pdf',
 };
 
 export const about = [
-  'Soy estudiante de Ingenieria de Sistemas e Informatica en la Universidad Tecnologica del Peru, actualmente en VIII ciclo y perteneciente al tercio superior.',
-  'Me desempeno como Practicante QA en ADAPTIC, donde participo en la validacion de funcionalidades, pruebas de APIs con Postman, documentacion de errores y seguimiento de incidencias en ClickUp.',
-  'Me considero una persona analitica, responsable y orientada al detalle, con interes en la calidad del software, el desarrollo web y la mejora continua. Disfruto colaborar con equipos tecnicos, aprender rapido y aportar valor real en cada proyecto.',
+  'Soy estudiante de Ingeniería de Sistemas e Informática en la Universidad Tecnológica del Perú, actualmente en IX ciclo y perteneciente al tercio superior.',
+  'Tengo experiencia práctica en QA Testing en ADAPTIC: pruebas funcionales, validación de APIs con Postman, reporte y seguimiento de incidencias en ClickUp, control de versiones con GitHub y revisión de despliegues en Vercel.',
+  'En JMP PINGUS lidero al equipo de desarrollo, organizo tareas y participo en la implementación de funcionalidades frontend y backend, revisión de código y validación de entregas. Mi base técnica incluye JavaScript, React, TypeScript, Node.js, SQL, APIs REST y Supabase.',
+  'Me enfoco en asegurar la calidad del software, detectar errores funcionales y colaborar con equipos de desarrollo. Aporto comunicación asertiva, empatía, adaptabilidad, resiliencia, resolución de problemas, trabajo en equipo, liderazgo y orientación al servicio.',
 ];
 
 export const stats = [
-  { value: 'VIII', label: 'Ciclo en curso' },
-  { value: 'QA', label: 'Practicante activo' },
-  { value: '8+', label: 'Herramientas tecnicas' },
-  { value: '5', label: 'Certificaciones' },
+  { value: 'IX', label: 'Ciclo en curso' },
+  { value: 'QA', label: 'Testing funcional' },
+  { value: '3', label: 'Proyectos destacados' },
+  { value: '7', label: 'Certificaciones y cursos' },
 ];
 
 export const skillGroups = [
@@ -54,14 +56,14 @@ export const skillGroups = [
   {
     icon: 'Code2',
     title: 'Desarrollo web & BD',
-    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js', 'Java', 'SQL', 'APIs REST'],
+    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'TypeScript', 'Node.js', 'Java', 'SQL', 'APIs REST'],
   },
   {
     icon: 'Users',
     title: 'Trabajo tecnico',
     skills: [
       'Scrum basico',
-      'Live coding',
+      'Vibe coding',
       'Comunicacion tecnica',
       'Analisis de errores',
       'Trabajo colaborativo',
@@ -72,15 +74,28 @@ export const skillGroups = [
 export const experience = [
   {
     company: 'ADAPTIC',
-    role: 'Practicante QA',
-    period: 'Actualidad',
+    role: 'QA Testing',
     points: [
       'Ejecucion de pruebas funcionales en proyectos digitales, validando flujos de usuario y comportamiento de funcionalidades antes de entrega.',
       'Validacion de APIs con Postman: revision de respuestas, codigos de estado y datos enviados.',
       'Reporte y seguimiento de incidencias en ClickUp, con documentacion de errores y pasos de reproduccion.',
       'Revision de despliegues web en Vercel, comprobando navegacion, funcionamiento general y posibles fallos para el usuario final.',
       'Validacion de datos en Supabase y colaboracion con el equipo tecnico en GitHub.',
-      'Participacion en sesiones de live coding, resolviendo ejercicios y explicando logica de programacion en tiempo real.',
+      'Participación en sesiones de programación, resolviendo ejercicios y explicando lógica en tiempo real.',
+      'Revisión de código, identificación de mejoras y modificación de funcionalidades existentes.',
+    ],
+  },
+  {
+    company: 'JMP PINGUS',
+    role: 'Desarrollador y líder de equipo',
+    points: [
+      'Liderazgo del equipo: organización de tareas, prioridades y responsabilidades, seguimiento de entregables y resolución de bloqueos técnicos.',
+      'Planificación de mejoras del sistema, definición de flujos, revisión de requerimientos y propuesta de soluciones prácticas.',
+      'Desarrollo y mejora de funcionalidades frontend y backend, revisión de código y modificación de funcionalidades existentes.',
+      'Pruebas funcionales y validación de entregas; documentación de errores e inconsistencias y seguimiento hasta su resolución.',
+      'Coordinación de la comunicación interna, acuerdos, asignación de tareas y seguimiento del progreso del proyecto.',
+      'Supervisión de la integración de cambios para mantener la estabilidad del sistema y la experiencia del usuario.',
+      'Acompañamiento técnico al equipo, resolución de dudas y mejora continua del flujo de trabajo.',
     ],
   },
 ];
@@ -110,9 +125,9 @@ export const complementaryExperience = [
 ];
 
 export const education = {
-  institution: 'Universidad Tecnologica del Peru',
-  career: 'Ingenieria de Sistemas e Informatica',
-  detail: 'VIII Ciclo - Actualidad',
+  institution: 'Universidad Tecnológica del Perú',
+  career: 'Ingeniería de Sistemas e Informática',
+  detail: 'IX ciclo · Actualidad',
   badge: 'Tercio superior',
 };
 
@@ -149,57 +164,45 @@ export const certifications = [
     issuer: 'Integra Tec',
     year: '2019',
   },
+  {
+    icon: 'Atom',
+    name: 'Introduction to Generative AI',
+    issuer: 'Google Cloud',
+    year: '2026',
+  },
+  {
+    icon: 'Atom',
+    name: 'Inteligencia Artificial para decisiones empresariales',
+    issuer: 'Universidad de Palermo',
+  },
 ];
 
 export const projects = [
   {
     icon: 'FlaskConical',
-    badge: 'QA',
-    title: 'Validacion de APIs con Postman',
-    description:
-      'Coleccion de pruebas automatizadas para validar endpoints REST: respuestas, codigos de estado, datos enviados y flujos de error.',
-    techs: ['Postman', 'APIs REST', 'JSON'],
-    demoUrl: '#',
-    codeUrl: '#',
+    badge: 'Backend / Frontend',
+    title: 'Recomendador de juegos',
+    role: 'Desarrollador backend/frontend del sistema web',
+    description: 'Aplicación web que recomienda videojuegos según género, plataforma, modo de juego, dificultad, duración y estado de ánimo. Implementé un sistema de puntuación para ordenar recomendaciones, reglas lógicas con pyDatalog y conexión con Supabase.',
+    result: 'Una web funcional que combina programación imperativa, funcional y lógica para generar recomendaciones de juegos.',
+    techs: ['Python', 'Flask', 'Supabase', 'PostgreSQL', 'pyDatalog', 'HTML', 'CSS'],
   },
   {
     icon: 'Globe2',
-    badge: 'Web',
-    title: 'Web App desplegada en Vercel',
-    description:
-      'Aplicacion web frontend desplegada en Vercel con integracion de base de datos y flujos de usuario validados en entorno de produccion.',
-    techs: ['React', 'Vercel', 'Supabase'],
-    demoUrl: '#',
-    codeUrl: '#',
+    badge: 'Full Stack',
+    title: 'ADAPTIC 360 Enterprise',
+    role: 'Desarrollador full stack',
+    description: 'Desarrollé y mantuve funcionalidades de una plataforma SaaS inmobiliaria con separación de datos por empresa: módulos frontend, APIs backend, integración con PostgreSQL/Supabase, gestión de archivos en Cloudflare R2 y componentes del visor 360.',
+    result: 'Contribuí a centralizar la gestión de proyectos inmobiliarios, contenido visual 360 y datos operativos en una plataforma escalable.',
+    techs: ['React', 'Vite', 'TypeScript', 'Express 5', 'Node.js', 'PostgreSQL', 'Supabase', 'Cloudflare R2', 'Three.js / R3F', 'Git'],
   },
   {
-    icon: 'Database',
-    badge: 'Backend',
-    title: 'Sistema con BD en Supabase',
-    description:
-      'Sistema de gestion con base de datos en Supabase. Validacion de registros, revision de datos y comprobacion de integridad de funcionalidades.',
-    techs: ['Supabase', 'SQL', 'Node.js'],
-    demoUrl: '#',
-    codeUrl: '#',
-  },
-  {
-    icon: 'Atom',
-    badge: 'Frontend',
-    title: 'Proyecto Frontend con React',
-    description:
-      'Interfaz de usuario construida con React y componentes reutilizables. Diseno responsive y experiencia de usuario validada funcionalmente.',
-    techs: ['React', 'JavaScript', 'CSS'],
-    demoUrl: '#',
-    codeUrl: '#',
-  },
-  {
-    icon: 'ClipboardCheck',
-    badge: 'Testing',
-    title: 'Practicas de Testing Funcional',
-    description:
-      'Casos de prueba y documentacion de escenarios funcionales para aplicaciones web, con reporte de incidencias y criterios de aceptacion.',
-    techs: ['Testing', 'ClickUp', 'GitHub'],
-    demoUrl: '#',
-    codeUrl: '#',
+    icon: 'Users',
+    badge: 'Liderazgo / Full Stack',
+    title: 'JMP PINGUS',
+    role: 'Líder de equipo y desarrollador full stack',
+    description: 'Lideré al equipo, organicé tareas y supervisé el avance del proyecto. Participé en funcionalidades frontend y backend, revisión de código, resolución de incidencias, pruebas funcionales y validación de entregas, apoyando las decisiones técnicas del equipo.',
+    result: 'Contribuí a mejorar la coordinación del equipo, la calidad del código y la estabilidad de las funcionalidades entregadas.',
+    techs: ['React', 'TypeScript', 'Node.js', 'APIs REST', 'Bases de datos', 'Git'],
   },
 ];

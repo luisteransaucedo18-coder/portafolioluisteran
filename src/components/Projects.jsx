@@ -6,8 +6,8 @@ export function Projects() {
   return (
     <Section id="proyectos" label="Portfolio" title="Proyectos">
       <p className="projects-intro">
-        Proximamente proyectos reales. Aqui veras los trabajos que estoy desarrollando o ya
-        complete.
+        Proyectos en los que participé desarrollando funcionalidades, validando software
+        y coordinando equipos de trabajo.
       </p>
 
       <div className="projects-grid fade-in">
@@ -20,7 +20,9 @@ export function Projects() {
               <span className="project-badge">{project.badge}</span>
             </div>
             <h3 className="project-title">{project.title}</h3>
+            <p className="project-desc"><strong>Rol:</strong> {project.role}</p>
             <p className="project-desc">{project.description}</p>
+            <p className="project-desc"><strong>Resultado:</strong> {project.result}</p>
             <div className="project-techs">
               {project.techs.map((tech) => (
                 <span className="tech-tag" key={tech}>
@@ -28,14 +30,7 @@ export function Projects() {
                 </span>
               ))}
             </div>
-            <div className="project-actions">
-              <a href={project.demoUrl} className="btn-project-primary">
-                Ver proyecto
-              </a>
-              <a href={project.codeUrl} className="btn-project-ghost">
-                Ver codigo
-              </a>
-            </div>
+
           </article>
         ))}
       </div>

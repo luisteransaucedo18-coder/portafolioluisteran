@@ -39,6 +39,10 @@ export function Contact() {
             <Icon name="Github" size={18} />
             Ver GitHub
           </a>
+          <a href={profile.linkedin} target="_blank" rel="noreferrer" className="btn-ghost">
+            <Icon name="Linkedin" size={18} />
+            LinkedIn
+          </a>
           <a href={profile.whatsapp} target="_blank" rel="noreferrer" className="btn-ghost">
             <Icon name="MessageCircle" size={18} />
             WhatsApp

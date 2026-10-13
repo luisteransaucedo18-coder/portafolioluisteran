@@ -13,8 +13,8 @@ export function Hero() {
             </h1>
             <p className="hero-subtitle">{profile.role}</p>
             <p className="hero-desc">
-              Estudiante de Ingenieria de Sistemas e Informatica, enfocado en QA,
-              validacion funcional, APIs y desarrollo web con React.
+              Estudiante de Ingeniería de Sistemas e Informática, IX ciclo y tercio superior.
+              Experiencia en QA, desarrollo full stack y liderazgo de equipos.
             </p>
 
             <div className="hero-actions">
